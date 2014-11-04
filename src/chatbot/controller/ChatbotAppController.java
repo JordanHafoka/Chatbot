@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 
 import chatbot.model.Chatbot;
 import chatbot.view.ChatbotFrame;
+import chatbot.view.ChatbotPanel;
 import chatbot.view.ChatbotView;
 
 /**
@@ -26,6 +27,7 @@ public class ChatbotAppController
 	 * the starting message for the Chatbot
 	 */
 	private String startMessage;
+
 	/**
 	 * the ending message for the Chatbot.
 	 */
@@ -62,22 +64,15 @@ public class ChatbotAppController
 	public void start()
 	{
 		String message = appView.displayChatbotConversation(startMessage);
-     /*
-		while (!notSoCleverBot.quitChecker(message))
-		{
-			message = notSoCleverBot.processText(message);
-			message = appView.displayChatbotConversation(message);
-
-			while (!notSoCleverBot.quitChecker(message))
-			{
-				message = notSoCleverBot.processText(message);
-				message = appView.displayChatbotConversation(message);
-			}
-		}
-		quit();
-      
-		JOptionPane.showMessageDialog(null, "We are not done yet...");
-		*/
+		
+		ChatbotPanel myAppPanel = (ChatbotPanel) baseFrame.getContentPane();
+		myAppPanel.displayTextToUser(startMessage);
+	}
+	public String sendTextToChatBot(String userInput)
+	{
+		String respondText = "";
+		respondText = notSoCleverBot.processText(userInput);
+		return respondText;
 	}
 
 	/**

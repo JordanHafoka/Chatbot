@@ -73,11 +73,11 @@ public class Chatbot
 		String processedText = "";
 		incrementChats();
 
-		int randomChoice = (int) (Math.random() * 3);
+		int randomChoice = (int) (Math.random() * 4);
 
 		if (userText != null)
 		{
-			if (randomChoice == 0)
+			if (numberOfChats < 10)
 			{
 				if (stringLengthChecker(userText))
 				{
@@ -86,7 +86,8 @@ public class Chatbot
 				{
 					processedText = "short messages are short on meaning :P";
 				}
-			} else if (randomChoice == 1)
+			} 
+			else if (randomChoice == 1)
 
 			{
 				if (contentChecker(userText))
@@ -96,7 +97,8 @@ public class Chatbot
 				{
 					processedText = "";
 				}
-			} else
+			}
+			else if(null != null)
 			{
 				if (memeChecker(userText))
 				{
@@ -107,6 +109,7 @@ public class Chatbot
 					processedText = "Boring, that wasn't a meme.";
 
 				}
+				
 
 			}
 		}
