@@ -17,6 +17,8 @@ public class ChatbotPanel extends JPanel
 	private JScrollPane chatPane;
 	private JButton clearButton;
 	private SpringLayout baseLayout;
+	private JButton saveButton;
+	private JButton loadButton;
 	
 	
 	/**
@@ -31,6 +33,9 @@ public class ChatbotPanel extends JPanel
 		chatArea = new JTextArea(5, 25); 
 		baseLayout = new SpringLayout();
 		chatPane = new JScrollPane(chatArea);
+		saveButton = new JButton("Save the chat contents.");
+		loadButton = new JButton("Load the saved chat contents");
+		
 		baseLayout.putConstraint(SpringLayout.NORTH, chatPane, 77, SpringLayout.NORTH, this);
 		baseLayout.putConstraint(SpringLayout.WEST, chatPane, 50, SpringLayout.WEST, this);
 		baseLayout.putConstraint(SpringLayout.SOUTH, chatPane, 246, SpringLayout.NORTH, this);
@@ -116,6 +121,18 @@ public class ChatbotPanel extends JPanel
 			public void actionPerformed(ActionEvent click)
 			{
 				chatArea.setText(null);
+				
+			}
+			
+		});
+		saveButton.addActionListener(new ActionListener()
+		{
+
+			@Override
+			public void actionPerformed(ActionEvent click)
+			{
+				String chat = chatArea.getText();
+				baseController.saveText(chat, false);
 				
 			}
 			

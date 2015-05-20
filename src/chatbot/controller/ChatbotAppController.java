@@ -1,5 +1,15 @@
 package chatbot.controller;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Scanner;
+
+import javax.swing.JOptionPane;
+
 import chatbot.model.Chatbot;
 import chatbot.view.ChatbotFrame;
 import chatbot.view.ChatbotPanel;
@@ -71,6 +81,47 @@ public class ChatbotAppController
 		myAppPanel.displayTextToUser(startMessage);
 	}
 	
+	public void saveText(String conversation, boolean appendToEnd)
+	{
+		String fileName = "/Users/jhaf4009/Documents/saved text.txt";
+		
+		PrintWriter outputWriter;
+		
+		if(appendToEnd)
+		{
+			try
+			{
+				outputWriter = new PrintWriter(new BufferedWriter(new FileWriter(fileName, appendToEnd)));
+				outputWriter.append(conversation);
+				outputWriter.close();
+			}
+			catch(FileNotFoundException noExistingFile)
+			{
+				JOptionPane.showMessageDialog(baseFrame, "There is no file there :(");
+				JOptionPane.showMessageDialog(baseFrame, noExistingFile.getMessage());
+			}
+			catch(IOException inputOutputError)
+			{
+				JOptionPane.showMessageDialog(baseFrame, "There is no file there :(");
+				JOptionPane.showMessageDialog(baseFrame, inputOutputError.getMessage());
+			}
+		}
+		else
+		{
+			try
+			{
+				outputWriter = new PrintWriter(fileName);
+				outputWriter.println(conversation);
+				outputWriter.close();
+			}
+			catch(FileNotFoundException noFileThere)
+			{
+				JOptionPane.showMessageDialog(baseFrame, "There is no file there :(");
+			}
+		}
+		
+	}
+	
 	/**
 	 * Takes a User's Input and sends it to Chatbot to get a response.
 	 * @param userInput	The User's Input.
@@ -90,5 +141,27 @@ public class ChatbotAppController
 	{
 		appView.displayInformation("goodbye cruel user! :( ");
 		System.exit(0);
+	}
+	public String readTextFromFile()
+	{
+		String fileText = "";
+		String filePath = "/Users/jhaf4009/Documents/";
+		String fileName = filePath + "saved text.txt";
+		File inputFile = new File(fileName);
+		
+		try
+		{
+			Scanner fileScanner = new Scanner(inputFile);
+			while(fileScanner.hasNext())
+			{
+				fileText += fileScanner.next() + "\n";
+			}
+			fileScanner.close();
+		}
+		catch(FileNotFoundException fileException)
+		{
+			JOptionPane.showMessageDialog(baseFrame,  "The file is not here :(");
+		}
+		return fileText;
 	}
 }
